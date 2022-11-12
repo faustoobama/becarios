@@ -48,9 +48,22 @@ require('./BirthDate.php');
                 $this->descripcion = new Texto();
             }
         }
+        public function getAttributes(){
+            $thisObject= new ReflectionClass('UsersForm');
+            $inputObjects = $thisObject->getProperties();
+            return (array_map(fn($inp)=>$inp->name,$inputObjects));
+        }
         public function isValid()
         {
-            return ($this->nombre->isValid()['outcome'] && $this->apellido->isValid()['outcome'] && $this->dniNie->isValid()['outcome'] && $this->correo->isValid()['outcome'] && $this->telefono->isValid()['outcome'] && $this->fechaNac->isValid()['outcome'] && $this->sexo->isValid()['outcome'] && $this->comunidad->isValid()['outcome'] && $this->provincia->isValid()['outcome'] && $this->codPostal->isValid()['outcome'] && $this->domicilio->isValid()['outcome'] && $this->descripcion->isValid()['outcome']);
+            $result=false;
+            $counter=0;
+            $inputs = $this->getAttributes();
+            do{
+                $result = $this->{$inputs[$counter]}->isValid()['outcome'];
+                $counter++;
+            }
+            while($result && $counter < count($inputs));
+            return $result;
         }
         public function getFailureMessages()
         {
@@ -60,18 +73,14 @@ require('./BirthDate.php');
         }
         public function printData()
         {
-            $class = new ReflectionClass('UsersForm');
-            $attributes = $class->getProperties();
-            $labels = (array_map(fn($attribute)=>$attribute->getName(), $attributes));
+            $labels = $this->getAttributes();
             print("<form method='post'>");
             foreach ($labels as $key => $label) {
                 print("<label for='$label'> $label </label><br>");
                 print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'>");
-                print("<p> <b> $label. ".$this->$label->isValid()['message']."</b> </p>");
+                print("<p> <b>".$this->$label->isValid()['message']."</b> </p>");
             }
             print("<input type='submit' value='enviar'></form>");
-            print($this->isValid());
-
         }
     
     }
