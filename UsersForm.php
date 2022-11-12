@@ -20,7 +20,7 @@ require('./BirthDate.php');
         private $domicilio;
         private $descripcion;
         public function __construct(array $array) {
-            if(!empty($array) && count($array) > 1){
+            if(($array) && count($array) > 1){
                 $this->nombre = new Texto($array['nombre']);
                 $this->apellido = new Texto($array['apellido']);
                 $this->dniNie = new DniNie($array['dniNie']);
@@ -74,13 +74,22 @@ require('./BirthDate.php');
         public function printData()
         {
             $labels = $this->getAttributes();
-            print("<form method='post'>");
-            foreach ($labels as $key => $label) {
-                print("<label for='$label'> $label </label><br>");
-                print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'>");
-                print("<p> <b>".$this->$label->isValid()['message']."</b> </p>");
+            if(!($_POST)){
+                print("<form method='post'>");
+                foreach ($labels as $key => $label) {
+                    print("<label for='$label'> $label </label><br>");
+                    print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                }
+                print("<input type='submit' value='enviar'></form>");
+            }else{
+                print("<form method='post'>");
+                foreach ($labels as $key => $label) {
+                    print("<label for='$label'> $label </label><br>");
+                    print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'>");
+                    print("<p> <b>".$this->$label->isValid()['message']."</b> </p>");
+                }
+                print("<input type='submit' value='enviar' name='enviar'></form>");
             }
-            print("<input type='submit' value='enviar'></form>");
         }
     
     }
