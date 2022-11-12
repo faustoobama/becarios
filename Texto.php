@@ -2,7 +2,7 @@
 
 class Texto {
     private $value;
-    public function __construct($val){
+    public function __construct($val=''){
         $this->value = $val;
     }
     public function isValid(){

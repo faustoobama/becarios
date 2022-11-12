@@ -34,12 +34,29 @@ require('./BirthDate.php');
                 $this->domicilio = new Texto($array['domicilio']);
                 $this->descripcion = new Texto($array['descripcion']);
             }else{
-                $this->printForm();
+                $this->nombre = new Texto();
+                $this->apellido = new Texto();
+                $this->dniNie = new DniNie();
+                $this->correo = new Correo();
+                $this->telefono = new Phone();
+                $this->fechaNac = new BirthDate();
+                $this->sexo = new Texto();
+                $this->comunidad = new Texto();
+                $this->provincia = new Texto();
+                $this->codPostal = new PostalCode();
+                $this->domicilio = new Texto();
+                $this->descripcion = new Texto();
             }
         }
         public function isValid()
         {
-            return true;
+            return $this->nombre->isValid()['outcome'] && $this->apellido->isValid()['outcome'] && $this->dniNie->isValid()['outcome'] && $this->correo->isValid()['outcome'] && $this->telefono->isValid()['outcome'] && $this->fechaNac->isValid()['outcome'] && $this->sexo->isValid()['outcome'] && $this->comunidad->isValid()['outcome'] && $this->provincia->isValid()['outcome'] && $this->codPostal->isValid()['outcome'] && $this->domicilio->isValid()['outcome'] && $this->descripcion->isValid()['outcome']; 
+        }
+        public function getFailureMessages()
+        {
+            if(!($this->nombre->isValid()['outcome'] && $this->apellido->isValid()['outcome'] && $this->dniNie->isValid()['outcome'] && $this->correo->isValid()['outcome'] && $this->telefono->isValid()['outcome'] && $this->fechaNac->isValid()['outcome'] && $this->sexo->isValid()['outcome'] && $this->comunidad->isValid()['outcome'] && $this->provincia->isValid()['outcome'] && $this->codPostal->isValid()['outcome'] && $this->domicilio->isValid()['outcome'] && $this->descripcion->isValid()['outcome'])){
+                return $this->nombre->isValid()['message'] .'<br>'. $this->apellido->isValid()['message'] .'<br>'. $this->dniNie->isValid()['message'] .'<br>'. $this->correo->isValid()['message'] .'<br>'. $this->telefono->isValid()['message'] .'<br>'. $this->fechaNac->isValid()['message'] .'<br>'. $this->sexo->isValid()['message'] .'<br>'. $this->comunidad->isValid()['message'] .'<br>'. $this->provincia->isValid()['message'] .'<br>'. $this->codPostal->isValid()['message'] .'<br>'. $this->domicilio->isValid()['message'] .'<br>'. $this->descripcion->isValid()['message'];
+            }
         }
         public function printForm()
         {
