@@ -20,7 +20,7 @@ require('./BirthDate.php');
         private $domicilio;
         private $descripcion;
         public function __construct(array $array) {
-            if(($array) && count($array) > 1){
+            if(!empty($array) && count($array) > 1){
                 $this->nombre = new Texto($array['nombre']);
                 $this->apellido = new Texto($array['apellido']);
                 $this->dniNie = new DniNie($array['dniNie']);
@@ -74,7 +74,7 @@ require('./BirthDate.php');
         public function printData()
         {
             $labels = $this->getAttributes();
-            if(!($_POST)){
+            if(empty($_POST)){
                 print("<form method='post'>");
                 foreach ($labels as $key => $label) {
                     print("<label for='$label'> $label </label><br>");
