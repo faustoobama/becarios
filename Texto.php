@@ -12,7 +12,10 @@ class Texto {
             return ['outcome' => false, 'message' => 'Cadena inválida. La cadena está vacia o no supera la longitud mínima'];
         }
     }
-    
+
+    public function getValue(){
+        return $this->value;
+    }
 }
 
 ?>

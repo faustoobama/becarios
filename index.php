@@ -1,13 +1,11 @@
 <?php
+    require('./UsersForm.php');
 
-require('./UsersForm.php');
+    $form = new UsersForm($_POST);
 
-$form = new UsersForm($_POST);
+    if($form->isValid()){
 
-if($form->isValid()){
-    print('Formulario valido <br>');
-}else{
-    print($form->getFailureMessages());
-}
+        print('Enviado');
 
+    }else $form->printData();
 ?>
