@@ -164,7 +164,7 @@ require('./BirthDate.php');
                                 print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                     }
-                    print("<p> <b>".$this->$label->isValid()['message']."</b> </p> </div>");
+                    ($this->{$label}->isValid()['outcome'])?print("<p> <b>".$this->{$label}->isValid()['message']."</b> </p> </div>"):print("<p> <i>".$this->{$label}->isValid()['message']."</i> </p> </div>");
                 }
                 print($foot);
             }

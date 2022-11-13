@@ -1,4 +1,4 @@
-*{margin: 0;padding: 0;}
+        *{margin: 0;padding: 0;outline: none;}
         .insercionBecarios{
             margin: 30px auto;
             width: 606px;
@@ -86,3 +86,12 @@
         .genero > div{
             display: flex;
         }
+        i{
+            color: rgb(187, 53, 53);
+            font-size: 16px;
+        }
+        b{
+            color: rgb(59, 153, 78);
+            font-size: 18px;
+        }
+    
