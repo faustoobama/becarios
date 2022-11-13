@@ -1,7 +1,6 @@
 <?php
 class BirthDate extends Texto {
     public function isValid(){
-        
         if(parent::isValid()['outcome']){
             $year = intval(explode('-',$this->getValue())[0]);
             $now = intval(explode('-',Date('Y-m-d'))[0]);

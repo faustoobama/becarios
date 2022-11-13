@@ -147,9 +147,9 @@ require('./BirthDate.php');
                             print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
                         break;
                         case 'genero':
-                            print("<div><input type='radio' id='gf' name='$label' value='femenino'><label for='gf'>Femenino</label></div>");
-                            print("<div><input type='radio' id='gm' name='$label' value='masculino'><label for='gm'>Masculino</label></div>");
-                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".('checked')."><label for='x'>Indefinido</label></div>");
+                            print("<div><input type='radio' id='gf' name='$label' value='femenino' ".(($this->$label->getValue() == 'femenino')?'checked':'')."><label for='gf'>Femenino</label></div>");
+                            print("<div><input type='radio' id='gm' name='$label' value='masculino' ".(($this->$label->getValue() == 'masculino')?'checked':'')."><label for='gm'>Masculino</label></div>");
+                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".(($this->$label->getValue() == 'indefinido')?'checked':'')."><label for='x'>Indefinido</label></div>");
                         break;
                         case 'comunidad':
                             print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
@@ -175,6 +175,7 @@ require('./BirthDate.php');
             echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->comunidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
             unset($_POST);
             print("<a href='./index.php'><input type='button' value='Añadir nuevo becario'></a>");
+
         }
     
     }
