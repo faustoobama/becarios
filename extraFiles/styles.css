@@ -1,0 +1,88 @@
+*{margin: 0;padding: 0;}
+        .insercionBecarios{
+            margin: 30px auto;
+            width: 606px;
+            height: fit-content;
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: repeat(2,47%);
+            column-gap: 6% ;
+            row-gap: 11px;
+            padding: 30px;
+        }
+        .nombre,.apellido,.fechaNac,.genero{
+            grid-column: 1/2;
+        }
+        .dniNie,.correo,.telefono,.codPostal,.domicilio,.provincia,.comunidad{
+            grid-column: 2/3;
+        }
+        .nombre,.dniNie{
+            grid-row: 1/2;
+        }
+        .apellido,.correo{
+            grid-row: 2/3;
+        }
+        .fechaNac,.telefono{
+            grid-row: 3/4;
+        }
+        input[type='radio']{
+            margin: 0 8px;
+        }
+        .domicilio{
+            grid-row: 4/5;
+        }
+        .codPostal{
+            grid-row: 5/6;
+        }
+        .provincia{
+            grid-row: 6/7;
+        }
+        .comunidad{
+            grid-row: 7/8;
+        }
+        .genero{
+            grid-row: 4/8;
+            height: 180px;
+            padding-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .descripcion,.enviar{
+            grid-column: 1/3;
+            grid-row: 8/9;
+        }
+        .enviar{
+            grid-row: 9/10;
+        }
+        #enviar{
+            width: 100%;
+            height: 40px;
+            margin-top: 20px;
+        }
+        textarea{
+            width: calc(100% - 8px);
+            resize: none;
+            height: 100px;
+            padding: 6px 0 0 6px;
+        }
+        input[type='date'],select{
+            width: 100%;
+            height: 30px;
+            text-align: center;
+        }
+        input[type='text'], input[type='email'], input[type='number']{
+            width: calc(100% - 8px);
+            height: 30px;
+            padding: 0 0 0 6px;
+            border: 1px solid black;
+        }
+        label{
+            height: 30px;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        .genero > div{
+            display: flex;
+        }
