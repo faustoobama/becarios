@@ -13,7 +13,7 @@ require('./BirthDate.php');
         private $correo;
         private $telefono;
         private $fechaNac;
-        private $sexo;
+        private $genero;
         private $comunidad;
         private $provincia;
         private $codPostal;
@@ -27,7 +27,7 @@ require('./BirthDate.php');
                 $this->correo = new Correo($array['correo']);
                 $this->telefono = new Phone($array['telefono']);
                 $this->fechaNac = new BirthDate($array['fechaNac']);
-                $this->sexo = new Texto($array['sexo']);
+                $this->genero = new Texto($array['genero']);
                 $this->comunidad = new Texto($array['comunidad']);
                 $this->provincia = new Texto($array['provincia']);
                 $this->codPostal = new PostalCode($array['codPostal']);
@@ -40,7 +40,7 @@ require('./BirthDate.php');
                 $this->correo = new Correo();
                 $this->telefono = new Phone();
                 $this->fechaNac = new BirthDate();
-                $this->sexo = new Texto();
+                $this->genero = new Texto();
                 $this->comunidad = new Texto();
                 $this->provincia = new Texto();
                 $this->codPostal = new PostalCode();
@@ -65,31 +65,92 @@ require('./BirthDate.php');
             while($result && $counter < count($inputs));
             return $result;
         }
-        public function getFailureMessages()
-        {
-            if(!($this->nombre->isValid()['outcome'] && $this->apellido->isValid()['outcome'] && $this->dniNie->isValid()['outcome'] && $this->correo->isValid()['outcome'] && $this->telefono->isValid()['outcome'] && $this->fechaNac->isValid()['outcome'] && $this->sexo->isValid()['outcome'] && $this->comunidad->isValid()['outcome'] && $this->provincia->isValid()['outcome'] && $this->codPostal->isValid()['outcome'] && $this->domicilio->isValid()['outcome'] && $this->descripcion->isValid()['outcome'])){
-                return $this->nombre->isValid()['message'] .'<br>'. $this->apellido->isValid()['message'] .'<br>'. $this->dniNie->isValid()['message'] .'<br>'. $this->correo->isValid()['message'] .'<br>'. $this->telefono->isValid()['message'] .'<br>'. $this->fechaNac->isValid()['message'] .'<br>'. $this->sexo->isValid()['message'] .'<br>'. $this->comunidad->isValid()['message'] .'<br>'. $this->provincia->isValid()['message'] .'<br>'. $this->codPostal->isValid()['message'] .'<br>'. $this->domicilio->isValid()['message'] .'<br>'. $this->descripcion->isValid()['message'];
-            }
-        }
-        public function printData()
+        public function printFormData()
         {
             $labels = $this->getAttributes();
             if(empty($_POST)){
                 print("<form method='post'>");
                 foreach ($labels as $key => $label) {
                     print("<label for='$label'> $label </label><br>");
-                    print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                    switch($label){
+                        case 'codPostal':
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                        break;
+                        case 'telefono':
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                        break;
+                        case 'correo':
+                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                        break;
+                        case 'fechaNac':
+                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                        break;
+                        case 'genero':
+                            print("<input type='radio' id='gf' name='$label' value='femenino'><label for='gf'>Femenino</label><br>");
+                            print("<input type='radio' id='gm' name='$label' value='masculino'><label for='gm'>Masculino</label><br>");
+                            print("<input type='radio' id='x' name='$label' value='indefinido' ".('checked')."><label for='x'>Indefinido</label><br>");
+                        break;
+                        case 'comunidad':
+                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                        break;
+                        case 'provincia':
+                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                        break;
+                        case 'descripcion':
+                            print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea><br>");
+                        break;
+                        default:
+                                print("<input type='text' id='$label' name='$label'>".$this->{$label}->getValue()."<br>");
+                        break;
+                    }
                 }
                 print("<input type='submit' value='enviar'></form>");
             }else{
                 print("<form method='post'>");
                 foreach ($labels as $key => $label) {
                     print("<label for='$label'> $label </label><br>");
-                    print("<input type='text' id='$label' name='$label' value='".$this->$label->getValue()."'>");
+                    switch($label){
+                        case 'codPostal':
+                            print("<input type='number' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                        break;
+                        case 'telefono':
+                            print("<input type='number' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                        break;
+                        case 'correo':
+                            print("<input type='email' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                        break;
+                        case 'fechaNac':
+                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                        break;
+                        case 'genero':
+                            print("<input type='radio' id='fem' name='$label' value='femenino' ".(($this->{$label}->getValue()=='femenino')?'checked':'')."><label for='fem'>Femenino</label><br>");
+                            print("<input type='radio' id='mal' name='$label' value='masculino' ".(($this->{$label}->getValue()=='masculino')?'checked':'')."><label for='mal'>Masculino</label><br>");
+                            print("<input type='radio' id='oth' name='$label' value='indefinido' ".(($this->{$label}->getValue()=='indefinido')?'checked':'')."><label for='oth'>Indefinido</label><br>");
+                        break;
+                        case 'comunidad':
+                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                        break;
+                        case 'provincia':
+                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                        break;
+                        case 'descripcion':
+                            print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea><br>");
+                        break;
+                        default:
+                                print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                        break;
+                    }
                     print("<p> <b>".$this->$label->isValid()['message']."</b> </p>");
                 }
                 print("<input type='submit' value='enviar' name='enviar'></form>");
             }
+        }
+        public function saveBecario()
+        {
+            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
+            echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->comunidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
+            unset($_POST);
+            print("<a href='./index.php'><input type='button' value='Añadir nuevo becario'></a>");
         }
     
     }

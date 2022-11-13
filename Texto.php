@@ -7,7 +7,7 @@ class Texto {
     }
     public function isValid(){
         if((strlen($this->value) > 0 && $this->value != ' ')){
-            return ['outcome' => true, 'message' => 'Cadena válida'];
+            return ['outcome' => true, 'message' => 'Valor válido'];
         }else {
             return ['outcome' => false, 'message' => 'Cadena inválida. La cadena está vacia o no supera la longitud mínima'];
         }

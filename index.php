@@ -1,11 +1,13 @@
 <?php
     require('./UsersForm.php');
+    require('./Becario.php');
 
     $form = new UsersForm($_POST);
     
     if($form->isValid()){
 
-        print('Enviado');
+       $form->saveBecario();
 
-    }else $form->printData();
+    }else $form->printFormData();
+
 ?>
