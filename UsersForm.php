@@ -179,12 +179,23 @@ require('./TextArea.php');
         }
         public function saveBecario()
         {
-            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>localidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
+            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
             echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->localidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
             unset($_POST);
             print("<a href='./index.php'><input type='button' value='Añadir nuevo becario'></a>");
-
-            ///
+            
+            $inputs = $this->getAttributes();
+            $totalInputs = count($inputs);
+            $fichero = 'becarios.txt';
+            // Abre el fichero para obtener el contenido existente
+            $contenido = file_get_contents($fichero);
+            // Añade una nueva persona al fichero
+            foreach ($inputs as $key => $input) {
+                $contenido .= $this->{$input}->getValue().(($key != ($totalInputs - 1))?';':'');
+            }
+            $contenido .= "\n";
+            // Escribe el contenido al fichero
+            file_put_contents($fichero, $contenido);
 
         }
     

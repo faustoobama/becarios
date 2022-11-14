@@ -1,6 +1,5 @@
 <?php
     require('./UsersForm.php');
-    require('./Becario.php');
 
     $form = new UsersForm($_POST);
     
