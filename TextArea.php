@@ -6,6 +6,4 @@
             }else return ['outcome' => false, 'message' => parent::isValid()['message'].'<br>Texto no válido'];
         }
     }
-
-
 ?>
