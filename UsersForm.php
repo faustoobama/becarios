@@ -5,6 +5,7 @@ require('./Correo.php');
 require('./DniNie.php');
 require('./Phone.php');
 require('./BirthDate.php');
+require('./Name.php');
 
     class UsersForm {
         private $nombre;
@@ -14,24 +15,24 @@ require('./BirthDate.php');
         private $telefono;
         private $fechaNac;
         private $genero;
-        private $comunidad;
+        private $localidad;
         private $provincia;
         private $codPostal;
         private $domicilio;
         private $descripcion;
         public function __construct(array $array) {
             if(!empty($array) && count($array) > 1){
-                $this->nombre = new Texto($array['nombre']);
-                $this->apellido = new Texto($array['apellido']);
+                $this->nombre = new Name($array['nombre']);
+                $this->apellido = new Name($array['apellido']);
                 $this->dniNie = new DniNie($array['dniNie']);
                 $this->correo = new Correo($array['correo']);
                 $this->telefono = new Phone($array['telefono']);
                 $this->fechaNac = new BirthDate($array['fechaNac']);
                 $this->genero = new Texto($array['genero']);
-                $this->comunidad = new Texto($array['comunidad']);
+                $this->localidad = new Name($array['localidad']);
                 $this->provincia = new Texto($array['provincia']);
                 $this->codPostal = new PostalCode($array['codPostal']);
-                $this->domicilio = new Texto($array['domicilio']);
+                $this->domicilio = new Texto($array['domicilio']); // pending
                 $this->descripcion = new Texto($array['descripcion']);
             }else{
                 $this->nombre = new Texto();
@@ -41,7 +42,7 @@ require('./BirthDate.php');
                 $this->telefono = new Phone();
                 $this->fechaNac = new BirthDate();
                 $this->genero = new Texto();
-                $this->comunidad = new Texto();
+                $this->localidad = new Name();
                 $this->provincia = new Texto();
                 $this->codPostal = new PostalCode();
                 $this->domicilio = new Texto();
@@ -112,11 +113,8 @@ require('./BirthDate.php');
                             print("<div><input type='radio' id='gm' name='$label' value='masculino'><label for='gm'>Masculino</label></div>");
                             print("<div><input type='radio' id='x' name='$label' value='indefinido' ".('checked')."><label for='x'>Indefinido</label></div>");
                         break;
-                        case 'comunidad':
-                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
-                        break;
                         case 'provincia':
-                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                            print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
                         break;
                         case 'descripcion':
                             print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea><br>");
@@ -151,11 +149,8 @@ require('./BirthDate.php');
                             print("<div><input type='radio' id='gm' name='$label' value='masculino' ".(($this->$label->getValue() == 'masculino')?'checked':'')."><label for='gm'>Masculino</label></div>");
                             print("<div><input type='radio' id='x' name='$label' value='indefinido' ".(($this->$label->getValue() == 'indefinido')?'checked':'')."><label for='x'>Indefinido</label></div>");
                         break;
-                        case 'comunidad':
-                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
-                        break;
                         case 'provincia':
-                            print("<select id='$label' name='$label'><option value='femenino'>Femenino</option><option value='masculino'>Masculino</option><option value='otro'>Otro</option></select><br>");
+                            print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
                         break;
                         case 'descripcion':
                             print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea><br>");
@@ -171,10 +166,12 @@ require('./BirthDate.php');
         }
         public function saveBecario()
         {
-            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
-            echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->comunidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
+            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>localidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
+            echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->localidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
             unset($_POST);
             print("<a href='./index.php'><input type='button' value='Añadir nuevo becario'></a>");
+
+            ///
 
         }
     

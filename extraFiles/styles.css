@@ -13,7 +13,7 @@
         .nombre,.apellido,.fechaNac,.genero{
             grid-column: 1/2;
         }
-        .dniNie,.correo,.telefono,.codPostal,.domicilio,.provincia,.comunidad{
+        .dniNie,.correo,.telefono,.codPostal,.domicilio,.provincia,.localidad{
             grid-column: 2/3;
         }
         .nombre,.dniNie{
@@ -34,12 +34,13 @@
         .codPostal{
             grid-row: 5/6;
         }
-        .provincia{
+        .localidad{
             grid-row: 6/7;
         }
-        .comunidad{
+        .provincia{
             grid-row: 7/8;
         }
+        
         .genero{
             grid-row: 4/8;
             height: 180px;
