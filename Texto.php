@@ -17,4 +17,6 @@ class Texto {
     }
 }
 
+
+    //falta por poner lo necesario para evitar la inyección 
 ?>

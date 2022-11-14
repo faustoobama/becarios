@@ -6,6 +6,7 @@ require('./DniNie.php');
 require('./Phone.php');
 require('./BirthDate.php');
 require('./Name.php');
+require('./TextArea.php');
 
     class UsersForm {
         private $nombre;
@@ -29,7 +30,7 @@ require('./Name.php');
                 $this->telefono = new Phone($array['telefono']);
                 $this->fechaNac = new BirthDate($array['fechaNac']);
                 $this->genero = new Texto($array['genero']);
-                $this->localidad = new Name($array['localidad']);
+                $this->localidad = new Texto($array['localidad']);
                 $this->provincia = new Texto($array['provincia']);
                 $this->codPostal = new PostalCode($array['codPostal']);
                 $this->domicilio = new Texto($array['domicilio']); // pending
@@ -42,7 +43,7 @@ require('./Name.php');
                 $this->telefono = new Phone();
                 $this->fechaNac = new BirthDate();
                 $this->genero = new Texto();
-                $this->localidad = new Name();
+                $this->localidad = new Texto(); 
                 $this->provincia = new Texto();
                 $this->codPostal = new PostalCode();
                 $this->domicilio = new Texto();
@@ -114,7 +115,13 @@ require('./Name.php');
                             print("<div><input type='radio' id='x' name='$label' value='indefinido' ".('checked')."><label for='x'>Indefinido</label></div>");
                         break;
                         case 'provincia':
-                            print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
+                            $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];
+                            print("<select id='".$label."' name=".$label.">");
+                            foreach ($provincias as $key => $provincia) {
+                                print("<option value='".$provincia."'>".$provincia."</option>");
+                            }
+                            //print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
+                            print('</select>');
                         break;
                         case 'descripcion':
                             print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea><br>");
@@ -133,24 +140,30 @@ require('./Name.php');
                     print("<label for='$label'> $label </label>");
                     switch($label){
                         case 'codPostal':
-                            print("<input type='number' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
                         break;
                         case 'telefono':
-                            print("<input type='number' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
                         break;
                         case 'correo':
-                            print("<input type='email' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
                         break;
                         case 'fechaNac':
                             print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
                         break;
                         case 'genero':
-                            print("<div><input type='radio' id='gf' name='$label' value='femenino' ".(($this->$label->getValue() == 'femenino')?'checked':'')."><label for='gf'>Femenino</label></div>");
-                            print("<div><input type='radio' id='gm' name='$label' value='masculino' ".(($this->$label->getValue() == 'masculino')?'checked':'')."><label for='gm'>Masculino</label></div>");
-                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".(($this->$label->getValue() == 'indefinido')?'checked':'')."><label for='x'>Indefinido</label></div>");
+                            print("<div><input type='radio' id='gf' name='$label' value='femenino' ".(($this->{$label}->getValue() == 'femenino')?'checked':'')."><label for='gf'>Femenino</label></div>");
+                            print("<div><input type='radio' id='gm' name='$label' value='masculino' ".(($this->{$label}->getValue() == 'masculino')?'checked':'')."><label for='gm'>Masculino</label></div>");
+                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".(($this->{$label}->getValue() == 'indefinido')?'checked':'')."><label for='x'>Indefinido</label></div>");
                         break;
                         case 'provincia':
-                            print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
+                            $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];                            print("<select id='".$label."' name=".$label.">");
+                            foreach ($provincias as $key => $provincia) {
+                                //($this->{$label}->getValue() == $provincia)?print("<option value='".$provincia."' selected>".$provincia."</option>"):print("<option value='".$provincia."'>".$provincia."</option>");
+                                print("<option value='".$provincia."' ".(($this->{$label}->getValue() == $provincia)?'selected':'').">".$provincia."</option>");
+                            }
+                            //print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
+                            print('</select>');
                         break;
                         case 'descripcion':
                             print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea><br>");
