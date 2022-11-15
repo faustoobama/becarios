@@ -98,7 +98,7 @@ require('./Parrafo.php');
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
-                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de naciemiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
+                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de nacimiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
                     switch($label){
                         case 'codPostal':
                             print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
@@ -128,7 +128,7 @@ require('./Parrafo.php');
                             print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea>");
                         break;
                         default:
-                                print("<input type='text' id='$label' name='$lab");
+                        print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                     }
                     print("</div>");
@@ -138,7 +138,7 @@ require('./Parrafo.php');
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
-                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de naciemiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
+                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de nacimiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
                     switch($label){
                         case 'codPostal':
                             print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
