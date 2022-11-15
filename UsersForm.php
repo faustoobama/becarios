@@ -2,7 +2,7 @@
 require('./Texto.php');
 require('./PostalCode.php');
 require('./Correo.php');
-require('./DniNie.php');
+require('./Nif.php');
 require('./Phone.php');
 require('./BirthDate.php');
 require('./Name.php');
@@ -11,7 +11,7 @@ require('./Parrafo.php');
     class UsersForm {
         private $nombre;
         private $apellido;
-        private $dniNie;
+        private $nif;
         private $correo;
         private $telefono;
         private $fechaNac;
@@ -25,7 +25,7 @@ require('./Parrafo.php');
             if(!empty($array) && count($array) > 1){
                 $this->nombre = new Name($array['nombre']);
                 $this->apellido = new Name($array['apellido']);
-                $this->dniNie = new DniNie($array['dniNie']);
+                $this->nif = new Nif($array['nif']);
                 $this->correo = new Correo($array['correo']);
                 $this->telefono = new Phone($array['telefono']);
                 $this->fechaNac = new BirthDate($array['fechaNac']);
@@ -38,7 +38,7 @@ require('./Parrafo.php');
             }else{
                 $this->nombre = new Texto();
                 $this->apellido = new Texto();
-                $this->dniNie = new DniNie();
+                $this->nif = new Nif();
                 $this->correo = new Correo();
                 $this->telefono = new Phone();
                 $this->fechaNac = new BirthDate();
@@ -85,49 +85,50 @@ require('./Parrafo.php');
             EOF;
             $foot = <<< EOF
                         <div class='enviar'>
-                            <input type='submit' value='enviar' id='enviar' name='enviar'>
+                            <input type='submit' value='ENVIAR' id='enviar' name='enviar'>
                         <div>
                     </form>
                 </body>
             </html>
             EOF;
+            $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
+            $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];
+
             if(empty($_POST)){
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
-                    print("<label for='$label'> $label </label>");
+                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de naciemiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
                     switch($label){
                         case 'codPostal':
-                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'telefono':
-                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'correo':
-                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'fechaNac':
-                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'genero':
-                            $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
                             foreach($generos as $genero){
                                 print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($genero['value'] == 'indefinido')?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
                             }
                         break;
                         case 'provincia':
-                            $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];
                             print("<select id='".$label."' name=".$label.">");
                             foreach ($provincias as $key => $provincia) {
-                                print("<option value='".(($provincia != '-- Seleccione provincia --')?$provincia:'')."'>".$provincia."</option>");
+                                print("<option value='".(($provincia != '-- Seleccione provincia --')?strtolower($provincia):'')."' ".(($this->{$label}->getValue() == strtolower($provincia))?'selected':'').">".$provincia."</option>");
                             }
                             print('</select>');
                         break;
                         case 'descripcion':
-                            print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea><br>");
+                            print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea>");
                         break;
                         default:
-                                print("<input type='text' id='$label' name='$label'>".$this->{$label}->getValue()."<br>");
+                                print("<input type='text' id='$label' name='$lab");
                         break;
                     }
                     print("</div>");
@@ -137,37 +138,34 @@ require('./Parrafo.php');
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
-                    print("<label for='$label'> $label </label>");
+                    print("<label for='$label'>".(($label == 'fechaNac')?strtoupper('fecha de naciemiento'):(($label == 'codPostal')?strtoupper('codigo postal'):(strtoupper($label))))."</label>");
                     switch($label){
                         case 'codPostal':
-                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'telefono':
-                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='number' id='$label' name='$label' value='".$this->{$label}->getValue()."' maxlength='9'>");
                         break;
                         case 'correo':
-                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
+                            print("<input type='email' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                         case 'fechaNac':
-                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
+                            print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'>");
                         break;
                         case 'genero':
-                            $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
                             foreach($generos as $genero){
                                 print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($this->{$label}->getValue() == $genero['value'])?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
                             }
                         break;
                         case 'provincia':
-                            $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];                            print("<select id='".$label."' name=".$label.">");
+                            print("<select id='".$label."' name=".$label.">");
                             foreach ($provincias as $key => $provincia) {
-                                //($this->{$label}->getValue() == $provincia)?print("<option value='".$provincia."' selected>".$provincia."</option>"):print("<option value='".$provincia."'>".$provincia."</option>");
-                                print("<option value='".(($provincia != '-- Seleccione provincia --')?$provincia:'')."' ".(($this->{$label}->getValue() == $provincia)?'selected':'').">".$provincia."</option>");
+                                print("<option value='".(($provincia != '-- Seleccione provincia --')?strtolower($provincia):'')."' ".(($this->{$label}->getValue() == strtolower($provincia))?'selected':'').">".$provincia."</option>");
                             }
-                            //print("<select id='$label' name='$label'><option value='Álava'>Álava</option><option value='Albacete'>Albacete</option><option value='Alicante'>Alicante</option><option value='Almería'>Almería</option><option value='Asturias'>Asturias</option><option value='Ávila'>Ávila</option><option value='Badajoz'>Badajoz</option><option value='Barcelona'>Barcelona</option><option value='Burgos'>Burgos</option><option value='Cáceres'>Cáceres</option><option value='Cádiz'>Cádiz</option><option value='Cantabria'>Cantabria</option><option value='Castellón'>Castellón</option><option value='Ceuta'>Ceuta</option><option value='Ciudad Real'>Ciudad Real</option><option value='Córdoba'>Córdoba</option><option value='La Coruña'>La Coruña</option><option value='Cuenca'>Cuenca</option><option value='Gerona'>Gerona</option><option value='Granada'>Granada</option><option value='Guadalajara'>Guadalajara</option><option value='Guipúzcoa'>Guipúzcoa</option><option value='Huelva'>Huelva</option><option value='Huesca'>Huesca</option><option value='Baleares'>Baleares</option><option value='Jaén'>Jaén</option><option value='León'>León</option><option value='Lérida'>Lérida</option><option value='Lugo'>Lugo</option><option value='Madrid'>Madrid</option>v<option value='Málaga'>Málaga</option><option value='Melilla'>Melilla</option><option value='Murcia'>Murcia</option><option value='Navarra'>Navarra</option><option value='Orense'>Orense</option><option value='Palencia'>Palencia</option><option value='Las Palmas'>Las Palmas</option><option value='Pontevedra'>Pontevedra</option><option value='La Rioja'>La Rioja</option><option value='Salamanca'>Salamanca</option><option value='Segovia'>Segovia</option><option value='Sevilla'>Sevilla</option><option value='Soria'>Soria</option><option value='Tarragona'>Tarragona</option><option value='Santa Cruz de Tenerife'>Santa Cruz de Tenerife</option><option value='Teruel'>Teruel</option><option value='Toledo'>Toledo</option><option value='Valencia'>Valencia</option><option value='Valladolid'>Valladolid</option><option value='Vizcaya'>Vizcaya</option><option value='Zamora'>Zamora</option><option value='Zaragoza'>Zaragoza</option></select><br>");
                             print('</select>');
                         break;
                         case 'descripcion':
-                            print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea><br>");
+                            print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea>");
                         break;
                         default:
                                 print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
@@ -180,14 +178,51 @@ require('./Parrafo.php');
         }
         public function saveBecario()
         {
-            echo "<table><tr><td>nombre</td><td>apellido</td><td>dniNie</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
-            echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->dniNie->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->localidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
-            unset($_POST);
-            print("<a href='./index.php'><input type='button' value='Añadir nuevo becario'></a>");
-            
             $inputs = $this->getAttributes();
             $totalInputs = count($inputs);
-            $fichero = 'becarios.txt';
+            $head = <<< EOF
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel='stylesheet' href='./extraFiles/styles.css'>
+                    <title>Formulario de alta de becarios</title>
+                </head>
+                <body>
+                    <table>
+            EOF;
+            $foot = <<< EOF
+
+                    </table>
+                </body>
+            </html>
+            EOF;
+
+            // echo "<table><tr><td>nombre</td><td>apellido</td><td>nif</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
+            // echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->nif->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->localidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
+            print($head);
+                print('<tr>');
+                foreach($inputs as $input){
+                    print("<td>$input</td>");
+                }
+                print('</tr>');
+
+                print('<tr>');
+                foreach($inputs as $input){
+                    print("<td>".(($input != 'descripcion')?$this->{$input}->getValue():substr($this->{$input}->getValue(),0,20).'...')."</td>");
+                }
+                print('</tr>');
+                print($foot);
+
+            unset($_POST);
+            
+            print("<a href='./index.php'><input type='button' id='nuevoBec' value='Añadir nuevo becario'></a>");
+            
+            
+            
+            $fichero = './listadoBecarios/becarios.csv';
             // Abre el fichero para obtener el contenido existente
             $contenido = file_get_contents($fichero);
             // Añade una nueva persona al fichero

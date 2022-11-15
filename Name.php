@@ -6,7 +6,5 @@
                 return ['outcome' => true, 'message' => parent::isvalid()['message']];
             }else return ['outcome' => false, 'message' => parent::isValid()['message'].'<br>Dato no válido'];
         }
-
-
     }
 ?>

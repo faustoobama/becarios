@@ -94,4 +94,28 @@
             color: rgb(59, 153, 78);
             font-size: 18px;
         }
+        table{
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        th,td,tr{
+            border: 1px solid black;
+            width: fit-content;
+            height: 40px;
+            text-align: center;
+            min-width: 100px;
+            padding: 0 5px;
+        }
+        #nuevoBec{
+            position: absolute;
+            left: 3.8%;
+            background: rgb(31, 128, 185);
+            color: white;
+            width: fit-content;
+            border: none;
+            cursor: pointer;
+            padding: 0 5px;
+            height: 40px;
+            margin: 30px  auto;
+        }
     

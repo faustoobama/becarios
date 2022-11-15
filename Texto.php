@@ -3,7 +3,7 @@
 class Texto {
     private $value;
     public function __construct($val=''){
-        $this->value = $val;
+        $this->value = strtolower($this->filtrar($val));
     }
     public function isValid(){
         if((strlen($this->value) > 0 && $this->value != ' ')){
@@ -13,8 +13,11 @@ class Texto {
         }
     }
     public function getValue(){
+        return $this->value;
+    }
+    public function filtrar($valor){
         // Esta funcion impedira la inyeccion HTML => htmlspecialchars()
-        return htmlspecialchars($this->value);
+        return htmlspecialchars(stripcslashes(trim($valor)));
     }
 }
 
