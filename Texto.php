@@ -13,10 +13,9 @@ class Texto {
         }
     }
     public function getValue(){
-        return $this->value;
+        // Esta funcion impedira la inyeccion HTML => htmlspecialchars()
+        return htmlspecialchars($this->value);
     }
 }
 
-
-    //falta por poner lo necesario para evitar la inyección 
 ?>

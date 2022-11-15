@@ -1,1 +1,6 @@
 
+Fausto Obama;Ngomo Afang;y6554427q;ferev@gmail.com;633107645;2004-12-03;masculino;ciempozuelos;Madrid;28350;caretos;&lt;script&gt;alert(&#039;Hola&#039;)&lt;script&gt;
+Fausto Obama;Ngomo Afang;y6554427q;ferev@gmail.com;633107645;2004-12-03;femenino;ciempozuelos;Madrid;28350;caretos;Esta es una descripción random que estoy ingresando para probar el regex de este campo
+Lucer Cito;Wenright;00214578X;petra@gmail.com;968574112;2004-12-12;masculino;ciempozuelos;Madrid;28350;caretos;VOY A APROVECHAR ESTA PRUEBA PARA COMPROBAR QUE NO SE CONVIERTA A MINUS O MAYUS LOS TEXTOS. ESTO DEBE CAMBIARSE
+Lucer Cito;Wenright;00214578X;petra@gmail.com;968574112;2004-12-12;masculino;ciempozuelos;Madrid;28350;caretos;VOY A APROVECHAR ESTA PRUEBA PARA COMPROBAR QUE NO SE CONVIERTA A MINUS O MAYUS LOS TEXTOS. 
+ESTO DEBE CAMBIARSE
