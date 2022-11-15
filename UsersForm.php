@@ -110,17 +110,17 @@ require('./TextArea.php');
                             print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->{$label}->getValue()."'><br>");
                         break;
                         case 'genero':
-                            print("<div><input type='radio' id='gf' name='$label' value='femenino'><label for='gf'>Femenino</label></div>");
-                            print("<div><input type='radio' id='gm' name='$label' value='masculino'><label for='gm'>Masculino</label></div>");
-                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".('checked')."><label for='x'>Indefinido</label></div>");
+                            $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
+                            foreach($generos as $genero){
+                                print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($genero['value'] == 'indefinido')?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
+                            }
                         break;
                         case 'provincia':
                             $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];
                             print("<select id='".$label."' name=".$label.">");
                             foreach ($provincias as $key => $provincia) {
-                                print("<option value='".$provincia."'>".$provincia."</option>");
+                                print("<option value='".(($provincia != '-- Seleccione provincia --')?$provincia:'')."'>".$provincia."</option>");
                             }
-
                             print('</select>');
                         break;
                         case 'descripcion':
@@ -152,9 +152,10 @@ require('./TextArea.php');
                             print("<input type='date' min='1962-01-01' max='2004-12-31' id='$label' name='$label' value='".$this->$label->getValue()."'><br>");
                         break;
                         case 'genero':
-                            print("<div><input type='radio' id='gf' name='$label' value='femenino' ".(($this->{$label}->getValue() == 'femenino')?'checked':'')."><label for='gf'>Femenino</label></div>");
-                            print("<div><input type='radio' id='gm' name='$label' value='masculino' ".(($this->{$label}->getValue() == 'masculino')?'checked':'')."><label for='gm'>Masculino</label></div>");
-                            print("<div><input type='radio' id='x' name='$label' value='indefinido' ".(($this->{$label}->getValue() == 'indefinido')?'checked':'')."><label for='x'>Indefinido</label></div>");
+                            $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
+                            foreach($generos as $genero){
+                                print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($this->{$label}->getValue() == $genero['value'])?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
+                            }
                         break;
                         case 'provincia':
                             $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];                            print("<select id='".$label."' name=".$label.">");
