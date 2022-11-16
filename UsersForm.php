@@ -188,6 +188,7 @@ require('./Parrafo.php');
         {
             $inputs = $this->getAttributes();
             $totalInputs = count($inputs);
+            //estructura en plantillas
             $head = <<< EOF
             <!DOCTYPE html>
             <html lang="es">
