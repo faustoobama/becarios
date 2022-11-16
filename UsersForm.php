@@ -36,8 +36,8 @@ require('./Parrafo.php');
                 $this->domicilio = new Texto($array['domicilio']);
                 $this->descripcion = new Parrafo($array['descripcion']);
             }else{
-                $this->nombre = new Texto();
-                $this->apellido = new Texto();
+                $this->nombre = new Name();
+                $this->apellido = new Name();
                 $this->nif = new Nif();
                 $this->correo = new Correo();
                 $this->telefono = new Phone();
@@ -256,7 +256,7 @@ require('./Parrafo.php');
                     print("</tr>");
                 }
                 fclose($aperturaFichero); // Cerrando el archivo
-                print("<table>");
+                print("</table>");
         }
     
     }
