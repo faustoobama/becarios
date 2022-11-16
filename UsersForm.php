@@ -225,12 +225,25 @@ require('./Parrafo.php');
             EOF;
 
             $fichero = './listadoBecarios/becarios.csv'; // Abre el fichero para obtener el contenido existente
-            print($head);
             $contenido = file_get_contents($fichero); // Añade una nueva persona al fichero
             foreach ($inputs as $key => $input) {
                 $contenido .= $this->{$input}->getValue().(($key != ($totalInputs - 1))?";":"\n");
             }
             file_put_contents($fichero, $contenido); // Escribe el contenido al fichero
+
+            print($head);
+                print('<tr>');
+                foreach($inputs as $input){
+                    print("<td>$input</td>");
+                }
+                print('</tr>');
+
+                print('<tr>');
+                foreach($inputs as $input){
+                    print("<td>".(($input != 'descripcion')?$this->{$input}->getValue():substr($this->{$input}->getValue(),0,20).'...')."</td>");
+                }
+                print('</tr>');
+
             print($midle);
             $this->readThisFile($fichero);
             print($foot);
