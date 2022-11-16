@@ -7,6 +7,8 @@
 
        $form->saveBecario();
 
+       unset($form);
+
     }else $form->printFormData();
 
 ?>

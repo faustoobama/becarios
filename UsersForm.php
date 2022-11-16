@@ -72,7 +72,7 @@ require('./Parrafo.php');
             $labels = $this->getAttributes();
             $head = <<< EOF
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="es">
                 <head>
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -184,7 +184,7 @@ require('./Parrafo.php');
             $totalInputs = count($inputs);
             $head = <<< EOF
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="es">
                 <head>
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -232,23 +232,13 @@ require('./Parrafo.php');
             file_put_contents($fichero, $contenido); // Escribe el contenido al fichero
 
             print($head);
-                print('<tr>');
-                foreach($inputs as $input){
-                    print("<td>$input</td>");
-                }
-                print('</tr>');
-
-                print('<tr>');
-                foreach($inputs as $input){
-                    print("<td>".(($input != 'descripcion')?$this->{$input}->getValue():substr($this->{$input}->getValue(),0,20).'...')."</td>");
-                }
-                print('</tr>');
-
+            foreach($inputs as $key => $input){
+                print("<p class=input".$key."><b>".(strtoupper($input)).":</b> <i>". (strtoupper($this->{$input}->getValue()))."</i></p>");
+            }
             print($midle);
             $this->readThisFile($fichero);
             print($foot);
             
-            unset($_POST);
         }
 
         public function readThisFile ($path){
