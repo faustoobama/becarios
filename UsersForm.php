@@ -193,44 +193,70 @@ require('./Parrafo.php');
                     <title>Formulario de alta de becarios</title>
                 </head>
                 <body>
-                    <div class='added'>
+                    <div class='added' id='added'>
                         <div class='addedTitle'>BECARIO AÑADIDO EXITOSAMENTE!</div>
-                        <div class='addedCont'>
+                        <div class='addedCont' id='addedCont'>
 
             EOF;
-            $foot = <<< EOF
+            $midle = <<< EOF
                             <div class='input12'>
-                                <a href='./index.php'>
-                                    <input type='button' id='nuevoB' class='nuevoBec' value='Añadir otro becario'>
-                                </a>
-                             
                                 <input type='button' id='listaB' class='nuevoBec' value='Listado de becarios'>
-
                             </div>
                         </div>
+                        </div>
+                    <div id='listadoDeBecarios'>
+            EOF;
+            $foot = <<< EOF
+                        <a href='./index.php'>
+                            <input type='button' id='nuevoB' class='nuevoBec' value='Añadir otro becario'>
+                        </a>
                     </div>
                 </body>
+                <script>
+                let listaB = document.getElementById('listaB'),
+                    contListaB = document.getElementById('listadoDeBecarios'),
+                    added = document.getElementById('added');;
+                    listaB.addEventListener('click',()=>{
+                        contListaB.style.display = 'block';
+                        added.style.display = 'none';
+                    });
+                </script>
             </html>
             EOF;
 
-            $fichero = './listadoBecarios/becarios.csv';
-            // Abre el fichero para obtener el contenido existente
-            $contenido = file_get_contents($fichero);
-            // Añade una nueva persona al fichero
-            foreach ($inputs as $key => $input) {
-                $contenido .= $this->{$input}->getValue().(($key != ($totalInputs - 1))?';':'');
-            }
-            $contenido .= "\n";
-            // Escribe el contenido al fichero
-            file_put_contents($fichero, $contenido);
-
-            unset($_POST);
-
+            $fichero = './listadoBecarios/becarios.csv'; // Abre el fichero para obtener el contenido existente
             print($head);
-                foreach($inputs as $key => $input){
-                    print("<p class=input".$key."><b>".(strtoupper($input)).":</b> <i>". (strtoupper($this->{$input}->getValue()))."</i></p>");
-                }
+            $contenido = file_get_contents($fichero); // Añade una nueva persona al fichero
+            foreach ($inputs as $key => $input) {
+                $contenido .= $this->{$input}->getValue().(($key != ($totalInputs - 1))?";":"\n");
+            }
+            file_put_contents($fichero, $contenido); // Escribe el contenido al fichero
+            print($midle);
+            $this->readThisFile($fichero);
             print($foot);
+            
+            unset($_POST);
+        }
+
+        public function readThisFile ($path){
+            $inputs = $this->getAttributes();
+            $aperturaFichero = fopen($path, 'r');
+                print("<table>");
+                foreach($inputs as $inp){
+                    print("<th>".$inp."</th>");
+                }
+                while(!feof($aperturaFichero)){
+                    $obtener = fgets($aperturaFichero); // Leyendo, extrayendo y almacenando una linea
+                    print("<tr>");
+                    foreach(explode(';',$obtener) as $key => $campo){
+                        if($campo != '' && $campo != ' ' && $campo != '\n'){
+                            print("<td ".(($key%2 !=0)?"class='greyTd'":"class='lightGreyTd'").">".((strlen($campo) > 100)?substr($campo,0,25).'...':$campo)."</td>");
+                        } // Imprimiendo cada campo de la linea
+                    }
+                    print("</tr>");
+                }
+                fclose($aperturaFichero); // Cerrando el archivo
+                print("<table>");
         }
     
     }

@@ -72,6 +72,7 @@
             height: 50px;
             font-size: 25px;
             display: block;
+            margin-top: 40px;
         }
         #nuevoB{
             background: rgba(50, 118, 228, 0.816);
@@ -100,4 +101,40 @@
         }
         a{
             display: block;
+        }
+        td,th{
+            font-size: 12px;
+            width: fit-content;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 10px black;
+        }
+
+        #listadoDeBecarios{
+            display: none;
+            width: 80%;
+            height: fit-content;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        #listadoDeBecarios > table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 4px groove rgb(9, 79, 159);
+        }
+
+        th{
+            background-color: rgb(9, 79, 159);
+            color: white;
+            font-family: 'Outfit';
+        }
+        .lightGreyTd{
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            font-family: 'Spectral';
+        }
+        .greyTd{
+            background-color: rgb(226, 226, 226);
+            color: rgb(0, 0, 0);
+            font-family: 'Outfit';
         }

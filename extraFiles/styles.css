@@ -16,7 +16,7 @@
         }
         .insercionBecarios{
             background: rgba(255, 255, 255);
-            min-width: 555px;
+            min-width: 505px;
             width: 40%;
             height: fit-content;
             display: grid;
@@ -151,10 +151,10 @@
         }
         .Titulo{
             font-family: 'Dancing Script';
-            font-size: 88px;
+            font-size: 77px;
             color: rgb(255, 255, 255);
             position: absolute;
-            top: 122px;
+            top: 136px;
             left: 8%;
             text-shadow: 2px 4px 8px rgb(23, 65, 104);
             font-style: italic;
