@@ -21,6 +21,7 @@ require('./Parrafo.php');
         private $codPostal;
         private $domicilio;
         private $descripcion;
+            //distinguimos el tipo de objeto generado 
         public function __construct(array $array) {
             if(!empty($array) && count($array) > 1){
                 $this->nombre = new Name($array['nombre']);
@@ -50,26 +51,29 @@ require('./Parrafo.php');
                 $this->descripcion = new Parrafo();
             }
         }
+        /* Busca una clase coincidente con el string y crea un objeto reflection class, en donde se "copian" las propiedades de ese objeto
+        (obtiene los métodos y atributos de la clase sobre la que se aplica, en forma de objetos)*/
         public function getAttributes(){
             $thisObject= new ReflectionClass('UsersForm');
             $inputObjects = $thisObject->getProperties();
-            return (array_map(fn($inp)=>$inp->name,$inputObjects));
+            //métodos y atributos capturados (en forma de objeto)
+            return (array_map(fn($inp)=>$inp->name,$inputObjects)); //se guardan los atributos y métodos recuperados con ReflectionClass
         }
         public function isValid()
         {
             $result=false;
             $counter=0;
-            $inputs = $this->getAttributes();
-            do{
-                $result = $this->{$inputs[$counter]}->isValid()['outcome'];
+            $inputs = $this->getAttributes(); //uso de los atributos capturados arriba
+            do{ //validación automática de cada tipo de input
+                $result = $this->{$inputs[$counter]}->isValid()['outcome']; //se guarda el resultado de la validación, posición a posición
                 $counter++;
             }
-            while($result && $counter < count($inputs));
+            while($result && $counter < count($inputs)); //el bucle si hay algo no válido
             return $result;
         }
         public function printFormData()
         {
-            $labels = $this->getAttributes();
+            $labels = $this->getAttributes(); //uso de los atributos capturados arriba
             $head = <<< EOF
             <!DOCTYPE html>
             <html lang="es">
@@ -84,7 +88,7 @@ require('./Parrafo.php');
                 <body>
                     <div class='Titulo'>Formulario <br> de registro de Becarios</div>
                     <form method='post' class='insercionBecarios'>
-            EOF;
+            EOF;  //la parte intermedia del formulario se hace en función de $_POST
             $foot = <<< EOF
                         <div class='enviar'>
                             <input type='submit' value='ENVIAR' id='enviar' name='enviar'>
@@ -96,7 +100,7 @@ require('./Parrafo.php');
             $generos = [['id'=>'Indefinido','value'=>'indefinido'],['id'=>'Femenino','value'=>'femenino'],['id'=>'Masculino','value'=>'masculino']];
             $provincias = ['-- Seleccione provincia --','Albacete','Alicante','Almería','Álava','Asturias','Ávila','Badajoz','Islas Baleares','Barcelona','Bizkaia','Burgos','Cáceres','Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','A Coruña','Cuenca','Gipuzkoa','Girona','Granada','Guadalajara','Huelva','Huesca','Jaén','León','Lleida','Lugo','Madrid','Málaga','Murcia','Navarra','Ourense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Santa Cruz de Tenerife','Segovia','Sevilla','Soria','Tarragona','Teruel','Toledo','Valencia','Valladolid','Zamora','Zaragoza','Ceuta','Melilla'];
 
-            if(empty($_POST)){
+            if(empty($_POST)){ //Impresión del formulario vacío
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
@@ -117,6 +121,7 @@ require('./Parrafo.php');
                         case 'genero':
                             foreach($generos as $genero){
                                 print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($genero['value'] == 'indefinido')?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
+                                //busca indefinido para ponerlo como valor inicial
                             }
                         break;
                         case 'provincia':
@@ -129,14 +134,14 @@ require('./Parrafo.php');
                         case 'descripcion':
                             print("<textarea id='$label' name='$label' value='".$this->{$label}->getValue()."'></textarea>");
                         break;
-                        default:
+                        default: //usamos default para los inputs no específicos (correspondientes a la clase Texto)
                         print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                     }
                     print("</div>");
                 }
                 print($foot);
-            }else{
+            }else{ //para imprimir el formulario una vez se han metido datos
                 print($head);
                 foreach ($labels as $key => $label) {
                     print("<div class='$label'>");
@@ -158,6 +163,7 @@ require('./Parrafo.php');
                             foreach($generos as $genero){
                                 print("<div><input type='radio' id='".$genero['value']."' name='$label' value='".$genero['value']."' ".(($this->{$label}->getValue() == $genero['value'])?'checked':'')."><label for='".$genero['value']."'>".$genero['id']."</label></div>");
                             }
+                            //coincidencia entre valores enviado y el que se imprime genera la selección
                         break;
                         case 'provincia':
                             print("<select id='".$label."' name=".$label.">");
@@ -169,7 +175,7 @@ require('./Parrafo.php');
                         case 'descripcion':
                             print("<textarea id='$label' name='$label'>".$this->{$label}->getValue()."</textarea>");
                         break;
-                        default:
+                        default: //para inputs no específicos
                                 print("<input type='text' id='$label' name='$label' value='".$this->{$label}->getValue()."'>");
                         break;
                     }
@@ -198,6 +204,7 @@ require('./Parrafo.php');
                         <div class='addedCont' id='addedCont'>
 
             EOF;
+            //se pone el último becario introducido
             $midle = <<< EOF
                             <div class='input12'>
                                 <input type='button' id='listaB' class='nuevoBec' value='Listado de becarios'>
@@ -206,6 +213,7 @@ require('./Parrafo.php');
                         </div>
                     <div id='listadoDeBecarios'>
             EOF;
+            //se ponen los becarios ya existentes
             $foot = <<< EOF
                         <a href='./index.php'>
                             <input type='button' id='nuevoB' class='nuevoBec' value='Añadir otro becario'>
@@ -238,7 +246,8 @@ require('./Parrafo.php');
             print($midle);
             $this->readThisFile($fichero);
             print($foot);
-            
+
+            unset($_POST);
         }
 
         public function readThisFile ($path){

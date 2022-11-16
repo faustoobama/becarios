@@ -7,8 +7,6 @@
 
        $form->saveBecario();
 
-       unset($form);
-
-    }else $form->printFormData();
+    }else $form->printFormData(); //se imprime el formulario vacío ($_POST vacío) para ingreso de datos la primera vez y las siguientes con los errores hasta que se válido
 
 ?>

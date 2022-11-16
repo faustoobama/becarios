@@ -3,14 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
-        *{margin: 0;padding: 0;text-decoration: none;border: none;}
+        *{margin: 0;padding: 0;text-decoration: none;border: none}
 
             *::-webkit-scrollbar {
-                width: 11px;     /* Tamaño del scroll en vertical */
-                height: 11px;    /* Tamaño del scroll en horizontal */
-            }
-            *::-webkit-scrollbar-track-piece {
-            box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+                width: 5px;     /* Tamaño del scroll en vertical */
+                height: 5px;    /* Tamaño del scroll en horizontal */
             }
            
             *::-webkit-scrollbar-thumb {
@@ -49,9 +46,11 @@
         }
         p{
             margin: 0 0 20px 0;
-            width: 100%;
+            width: calc(100% - 5px);
             display: flex;
             justify-content: space-between;
+            padding: 0 5px 0 0;
+            overflow-x: scroll;
         }
         b{
             font-size: 15px;
@@ -95,6 +94,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            overflow-X: scroll;
             width: 100%;
             height: 100%;
         }

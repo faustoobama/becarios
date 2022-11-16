@@ -1,6 +1,6 @@
 <?php
 
-class Texto {
+class Texto { //la clase principal
     private $value;
     public function __construct($val=''){
         $this->value = strtolower($this->filtrar($val));
