@@ -78,9 +78,11 @@ require('./Parrafo.php');
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <link rel='stylesheet' href='./extraFiles/styles.css'>
+                    <script src='./extraFiles/index.js' type='text/javascript'></script>
                     <title>Formulario de alta de becarios</title>
                 </head>
                 <body>
+                    <div class='Titulo'>Formulario <br> de registro de Becarios</div>
                     <form method='post' class='insercionBecarios'>
             EOF;
             $foot = <<< EOF
@@ -187,41 +189,30 @@ require('./Parrafo.php');
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel='stylesheet' href='./extraFiles/styles.css'>
+                    <link rel='stylesheet' href='./extraFiles/morestyles.css'>
                     <title>Formulario de alta de becarios</title>
                 </head>
                 <body>
-                    <table>
+                    <div class='added'>
+                        <div class='addedTitle'>BECARIO AÑADIDO EXITOSAMENTE!</div>
+                        <div class='addedCont'>
+
             EOF;
             $foot = <<< EOF
+                            <div class='input12'>
+                                <a href='./index.php'>
+                                    <input type='button' id='nuevoB' class='nuevoBec' value='Añadir otro becario'>
+                                </a>
+                             
+                                <input type='button' id='listaB' class='nuevoBec' value='Listado de becarios'>
 
-                    </table>
+                            </div>
+                        </div>
+                    </div>
                 </body>
             </html>
             EOF;
 
-            // echo "<table><tr><td>nombre</td><td>apellido</td><td>nif</td><td>correo</td><td>telefono</td><td>fechaNac</td><td>genero</td><td>comunidad</td><td>provincia</td><td>codPostal</td><td>domicilio</td><td>descripcion</td></tr>";
-            // echo "<tr><td>". $this->nombre->getValue() ."</td><td>". $this->apellido->getValue()."</td><td>". $this->nif->getValue() ."</td><td>". $this->correo->getValue() ."</td><td>". $this->telefono->getValue() ."</td><td>". $this->fechaNac->getValue() ."</td><td>". $this->genero->getValue()."</td><td>". $this->localidad->getValue() ."</td><td>". $this->provincia->getValue() ."</td><td>". $this->codPostal->getValue() ."</td><td>". $this->domicilio->getValue() ."</td><td>". $this->descripcion->getValue() ."</td></tr></table>";
-            print($head);
-                print('<tr>');
-                foreach($inputs as $input){
-                    print("<td>$input</td>");
-                }
-                print('</tr>');
-
-                print('<tr>');
-                foreach($inputs as $input){
-                    print("<td>".(($input != 'descripcion')?$this->{$input}->getValue():substr($this->{$input}->getValue(),0,20).'...')."</td>");
-                }
-                print('</tr>');
-                print($foot);
-
-            unset($_POST);
-            
-            print("<a href='./index.php'><input type='button' id='nuevoBec' value='Añadir nuevo becario'></a>");
-            
-            
-            
             $fichero = './listadoBecarios/becarios.csv';
             // Abre el fichero para obtener el contenido existente
             $contenido = file_get_contents($fichero);
@@ -233,6 +224,13 @@ require('./Parrafo.php');
             // Escribe el contenido al fichero
             file_put_contents($fichero, $contenido);
 
+            unset($_POST);
+
+            print($head);
+                foreach($inputs as $key => $input){
+                    print("<p class=input".$key."><b>".(strtoupper($input)).":</b> <i>". (strtoupper($this->{$input}->getValue()))."</i></p>");
+                }
+            print($foot);
         }
     
     }

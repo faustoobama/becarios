@@ -1,14 +1,30 @@
-        *{margin: 0;padding: 0;outline: none;}
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+        *{margin: 0;padding: 0;outline: none;border: none;}
+        body{
+            background-image: url('./img/becarios0.jpg');
+            background-size: 70% 80%;
+            background-repeat: no-repeat;
+            background-position: 20% 50%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            transition: 1.5s;
+        }
         .insercionBecarios{
-            margin: 30px auto;
-            width: 606px;
+            background: rgba(255, 255, 255);
+            min-width: 555px;
+            width: 40%;
             height: fit-content;
             display: grid;
             grid-template-rows: auto;
             grid-template-columns: repeat(2,47%);
             column-gap: 6% ;
             row-gap: 11px;
-            padding: 30px;
+            padding: 88px;
         }
         .nombre,.apellido,.fechaNac,.genero{
             grid-column: 1/2;
@@ -58,13 +74,16 @@
         #enviar{
             width: 100%;
             height: 40px;
-            margin-top: 20px;
+            margin-top: 22px;
+            font-family: 'Outfit';
+            background: rgba(50, 118, 228, 0.816);
+            color: white;
+            cursor: pointer;
         }
         textarea{
-            width: calc(100% - 8px);
+            width: 100%;
             resize: none;
             height: 100px;
-            padding: 6px 0 0 6px;
         }
         input[type='date'],select{
             width: 100%;
@@ -72,16 +91,17 @@
             text-align: center;
         }
         input[type='text'], input[type='email'], input[type='number']{
-            width: calc(100% - 8px);
+            width: 100%;
             height: 30px;
-            padding: 0 0 0 6px;
-            border: 1px solid black;
         }
         label{
             height: 30px;
             display: flex;
             align-items: center;
-            font-size: 18px;
+            font-size: 15px;
+            font-family: 'Outfit';
+            font-style: italic;
+            color: rgb(48, 85, 171);
         }
         .genero > div{
             display: flex;
@@ -89,14 +109,18 @@
         i{
             color: rgb(187, 53, 53);
             font-size: 16px;
+            font-family: 'Roboto';
+            font-weight: bolder;
         }
         b{
             color: rgb(59, 153, 78);
             font-size: 18px;
+            font-family: 'Outfit';
         }
         table{
             border-collapse: collapse;
             margin: 0 auto;
+            
         }
         th,td,tr{
             border: 1px solid black;
@@ -106,16 +130,45 @@
             min-width: 100px;
             padding: 0 5px;
         }
-        #nuevoBec{
-            position: absolute;
-            left: 3.8%;
-            background: rgb(31, 128, 185);
-            color: white;
-            width: fit-content;
+        
+        input,textarea{
+            font-family: 'Spectral';
+            font-size: 18px;
             border: none;
-            cursor: pointer;
-            padding: 0 5px;
-            height: 40px;
-            margin: 30px  auto;
+            border-bottom: 1px solid rgba(50, 118, 228, 0.816);
+            color: rgb(92, 92, 92);
+            background: transparent;
         }
+        select,input[type='date']{
+            font-family: 'Dancing Script';
+            border: 1px solid rgba(50, 118, 228, 0.816);
+            background: rgba(50, 118, 228, 0.816);
+            color: white;
+            font-size: 19px;
+        }
+        p{
+            margin: 11px 0 0 0;
+        }
+        .Titulo{
+            font-family: 'Dancing Script';
+            font-size: 88px;
+            color: rgb(255, 255, 255);
+            position: absolute;
+            top: 122px;
+            left: 8%;
+            text-shadow: 2px 4px 8px rgb(23, 65, 104);
+            font-style: italic;
+        }
+        input[type='number']::-webkit-inner-spin-button, 
+        input[type='number']::-webkit-outer-spin-button { 
+            appearance: none; 
+        }
+        input[type='date']::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(1);
+            margin-right: 10px;
+        }
+
+     
+
     
